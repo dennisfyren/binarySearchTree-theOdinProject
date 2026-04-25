@@ -1,0 +1,31 @@
+class Node {
+  constructor(value) {
+    this.data = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+export class Tree {
+  constructor(array) {
+    this.root = this.buildTree(array);
+  }
+
+  buildTree(array) {
+    let tmp = [...new Set(array)];
+    const sorted = tmp.sort((a, b) => a - b);
+
+    const newNode = (arr) => {
+      if (arr.length === 0) return null;
+
+      let split = Math.floor(arr.length / 2);
+      let node = new Node(arr[split]);
+
+      node.left = newNode(arr.slice(0, split));
+      node.right = newNode(arr.slice(split + 1));
+
+      return node;
+    };
+    return newNode(sorted);
+  }
+}
