@@ -28,4 +28,14 @@ export class Tree {
     };
     return newNode(sorted);
   }
+  includes(value) {
+    let current = this.root;
+    const check = (value) => {
+      if (current.data === value) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+  }
 }
