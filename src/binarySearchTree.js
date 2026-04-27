@@ -29,13 +29,26 @@ export class Tree {
     return newNode(sorted);
   }
   includes(value) {
+    if (!Number.isInteger(value)) throw new Error("Must be a number");
     let current = this.root;
-    const check = (value) => {
+    if (current.data === value) {
+      return true;
+    }
+    function search() {
+      if (value < current.data) {
+        if (current.left === null) return false;
+        current = current.left;
+      }
+      if (value > current.data) {
+        if (current.right === null) return false;
+        current = current.right;
+      }
       if (current.data === value) {
         return true;
       } else {
-        return false;
+        return search();
       }
-    };
+    }
+    return search();
   }
 }

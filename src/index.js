@@ -15,4 +15,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 prettyPrint(tree.root);
 
-console.log(tree.includes(3));
+console.log(tree.includes(4));
