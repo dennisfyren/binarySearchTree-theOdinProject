@@ -13,6 +13,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
+
+const log = (item) => {
+  console.log(item);
+};
+
 prettyPrint(tree.root);
 
-console.log(tree.includes(4));
+console.log(tree.levelOrderForEach(log));
