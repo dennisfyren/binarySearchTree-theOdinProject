@@ -1,6 +1,6 @@
-import { Tree } from "./binarySearchTree.js";
+import { Tree, log } from "./binarySearchTree.js";
 
-const array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+const array = [1, 2, 3, 4, 5, 6, 7];
 
 const tree = new Tree(array);
 
@@ -12,10 +12,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
   console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
-};
-
-const log = (item) => {
-  console.log(item);
 };
 
 prettyPrint(tree.root);

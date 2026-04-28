@@ -111,41 +111,28 @@ export class Tree {
     this.root = remove(this.root, value);
   }
   levelOrderForEach(call) {
+    if (!call) throw new Error("Must include a callback");
     const queue = new Queue();
     let current = this.root;
+    call(current.data);
     function levelOrder(node) {
-      queue.enqueue(node);
       if (node.left !== null) {
-        levelOrder(node.left);
+        queue.enqueue(node.left);
       }
       if (node.right !== null) {
-        levelOrder(node.right);
+        queue.enqueue(node.right);
       }
+      while (!queue.isEmpty()) {
+        let item = queue.dequeue();
+        call(item.data);
+        levelOrder(item);
+      }
+      return "Done";
     }
-    levelOrder(this.root);
-    return queue.items;
+    return levelOrder(this.root);
   }
 }
-// levelOrderForEach(call) {
-//   const queue = new Queue();
-//   let current = this.root;
-//   queue.enqueue(current);
-//   function levelOrder() {
-//     if (current === null) return;
-//     if (current.left) {
-//       if (current.left === null) return;
-//       current = current.left;
-//       queue.enqueue(current);
-//       levelOrder();
-//     }
-//     if (current.right) {
-//       if (current.right === null) return;
-//       current = current.right;
-//       queue.enqueue(current);
-//       levelOrder();
-//     }
-//     return;
-//   }
-//   levelOrder();
-//   return queue.items;
-// }
+
+export const log = (item) => {
+  console.log(item);
+};
