@@ -33,7 +33,6 @@ export class Tree {
   includes(value) {
     if (!Number.isInteger(value)) throw new Error("Must be a number");
     let current = this.root;
-    console.log(current.data);
     if (current.data === value) {
       return true;
     }
@@ -114,24 +113,39 @@ export class Tree {
   levelOrderForEach(call) {
     const queue = new Queue();
     let current = this.root;
-    queue.enqueue(current);
-    function levelOrder() {
-      if (current === null) return;
-      if (current.left) {
-        if (current.left === null) return;
-        current = current.left;
-        queue.enqueue(current);
-        levelOrder();
+    function levelOrder(node) {
+      queue.enqueue(node);
+      if (node.left !== null) {
+        levelOrder(node.left);
       }
-      if (current.right) {
-        if (current.right === null) return;
-        current = current.right;
-        queue.enqueue(current);
-        levelOrder();
+      if (node.right !== null) {
+        levelOrder(node.right);
       }
-      return;
     }
-    levelOrder();
+    levelOrder(this.root);
     return queue.items;
   }
 }
+// levelOrderForEach(call) {
+//   const queue = new Queue();
+//   let current = this.root;
+//   queue.enqueue(current);
+//   function levelOrder() {
+//     if (current === null) return;
+//     if (current.left) {
+//       if (current.left === null) return;
+//       current = current.left;
+//       queue.enqueue(current);
+//       levelOrder();
+//     }
+//     if (current.right) {
+//       if (current.right === null) return;
+//       current = current.right;
+//       queue.enqueue(current);
+//       levelOrder();
+//     }
+//     return;
+//   }
+//   levelOrder();
+//   return queue.items;
+// }
