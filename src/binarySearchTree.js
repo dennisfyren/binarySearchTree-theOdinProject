@@ -30,6 +30,7 @@ export class Tree {
     };
     return newNode(sorted);
   }
+
   includes(value) {
     if (!Number.isInteger(value)) throw new Error("Must be a number");
     let current = this.root;
@@ -53,6 +54,7 @@ export class Tree {
     }
     return search();
   }
+
   insert(value) {
     if (!Number.isInteger(value)) throw new Error("Must be a number");
     let current = this.root;
@@ -82,6 +84,7 @@ export class Tree {
     }
     return findFree();
   }
+
   deleteItem(value) {
     function getSuccessor(node) {
       node = node.right;
@@ -110,6 +113,7 @@ export class Tree {
     }
     this.root = remove(this.root, value);
   }
+
   levelOrderForEach(call) {
     if (!call) throw new Error("Must include a callback");
     const queue = new Queue();
