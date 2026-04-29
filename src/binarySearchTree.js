@@ -117,8 +117,7 @@ export class Tree {
   levelOrderForEach(call) {
     if (!call) throw new Error("Must include a callback");
     const queue = new Queue();
-    let current = this.root;
-    call(current.data);
+    call(this.root.data);
     function levelOrder(node) {
       if (node.left !== null) {
         queue.enqueue(node.left);
@@ -134,6 +133,97 @@ export class Tree {
       return "Done";
     }
     return levelOrder(this.root);
+  }
+
+  inOrderForEach(call) {
+    if (!call) throw new Error("Must include a callback");
+    let queue = new Queue();
+    function inOrder(node, res) {
+      if (node.left !== null) inOrder(node.left, res);
+      res.enqueue(node);
+      if (node.left !== null) inOrder(node.right, res);
+      return res;
+    }
+    queue = inOrder(this.root, queue);
+    while (!queue.isEmpty()) {
+      const item = queue.dequeue();
+      call(item.data);
+    }
+  }
+
+  preOrderForEach(call) {
+    if (!call) throw new Error("Must include a callback");
+    let queue = new Queue();
+    function inOrder(node, res) {
+      res.enqueue(node);
+      if (node.left !== null) inOrder(node.left, res);
+      if (node.right !== null) inOrder(node.right, res);
+      return res;
+    }
+    queue = inOrder(this.root, queue);
+    while (!queue.isEmpty()) {
+      const item = queue.dequeue();
+      call(item.data);
+    }
+  }
+
+  postOrderForEach(call) {
+    if (!call) throw new Error("Must include a callback");
+    let queue = new Queue();
+    function inOrder(node, res) {
+      if (node.left !== null) inOrder(node.left, res);
+      if (node.right !== null) inOrder(node.right, res);
+      res.enqueue(node);
+      return res;
+    }
+    queue = inOrder(this.root, queue);
+    while (!queue.isEmpty()) {
+      const item = queue.dequeue();
+      call(item.data);
+    }
+  }
+
+  getHeight(value) {
+    function traverse(node, value) {
+      if (value < node.data) {
+        if (node.left) {
+          return traverse(node.left, value);
+        }
+      } else if (value > node.data) {
+        if (node.right) {
+          return traverse(node.right, value);
+        }
+      }
+      if (value === node.data) {
+        function getMax(node) {
+          if (node === null) return -1;
+          const left = getMax(node.left);
+          const right = getMax(node.right);
+          return 1 + Math.max(left, right);
+        }
+        return getMax(node);
+      }
+    }
+    return traverse(this.root, value);
+  }
+
+  getDepth(value) {
+    let levels = 0;
+    function traverse(node, value, levels) {
+      if (value < node.data) {
+        if (node.left) {
+          return traverse(node.left, value, levels + 1);
+        }
+      } else if (value > node.data) {
+        if (node.right) {
+          return traverse(node.right, value, levels + 1);
+        }
+      }
+      if (value === node.data) {
+        return levels;
+      }
+    }
+    return traverse(this.root, value, levels);
   }
 }
 
