@@ -26,4 +26,4 @@ tree.insert(16);
 
 prettyPrint(tree.root);
 
-console.log(tree.getHeight(5));
+console.log(tree.isBalanced());

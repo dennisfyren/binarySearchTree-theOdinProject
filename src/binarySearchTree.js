@@ -225,6 +225,20 @@ export class Tree {
     }
     return traverse(this.root, value, levels);
   }
+
+  isBalanced() {
+    const current = this.root;
+    function getMax(node, current) {
+      if (node === null) return -1;
+      const left = getMax(node.left, current);
+      const right = getMax(node.right, current);
+      if (node === current) {
+        return Math.abs(left - right) <= 1;
+      }
+      return 1 + Math.max(left, right);
+    }
+    return getMax(this.root, current);
+  }
 }
 
 export const log = (item) => {
