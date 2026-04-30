@@ -1,8 +1,12 @@
 import { Tree, log } from "./binarySearchTree.js";
 
-const array = [1, 2, 3, 4, 5, 6, 7];
-
-const tree = new Tree(array);
+const randomArray = (amount) => {
+  const array = [];
+  for (let i = 0; i < amount; i++) {
+    array[i] = Math.floor(Math.random() * 100);
+  }
+  return array;
+};
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null || node === undefined) {
@@ -14,16 +18,32 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
 
-tree.insert(10);
-
-tree.insert(12);
-tree.insert(11);
-tree.insert(14);
-tree.insert(13);
-tree.insert(15);
-tree.insert(17);
-tree.insert(16);
+const tree = new Tree(randomArray(15));
 
 prettyPrint(tree.root);
 
 console.log(tree.isBalanced());
+
+console.log(tree.levelOrderForEach(log));
+console.log(tree.inOrderForEach(log));
+console.log(tree.preOrderForEach(log));
+console.log(tree.postOrderForEach(log));
+
+tree.insert(103);
+tree.insert(122);
+tree.insert(145);
+tree.insert(1023);
+tree.insert(130);
+tree.insert(111);
+tree.insert(154);
+
+prettyPrint(tree.root);
+console.log(tree.isBalanced());
+tree.rebalance();
+console.log(tree.isBalanced());
+prettyPrint(tree.root);
+
+console.log(tree.levelOrderForEach(log));
+console.log(tree.inOrderForEach(log));
+console.log(tree.preOrderForEach(log));
+console.log(tree.postOrderForEach(log));

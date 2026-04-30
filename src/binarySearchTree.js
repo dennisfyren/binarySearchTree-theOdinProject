@@ -130,7 +130,7 @@ export class Tree {
         call(item.data);
         levelOrder(item);
       }
-      return "Done";
+      return;
     }
     return levelOrder(this.root);
   }
@@ -141,7 +141,7 @@ export class Tree {
     function inOrder(node, res) {
       if (node.left !== null) inOrder(node.left, res);
       res.enqueue(node);
-      if (node.left !== null) inOrder(node.right, res);
+      if (node.right !== null) inOrder(node.right, res);
       return res;
     }
     queue = inOrder(this.root, queue);
@@ -238,6 +238,18 @@ export class Tree {
       return 1 + Math.max(left, right);
     }
     return getMax(this.root, current);
+  }
+
+  rebalance() {
+    let queue = new Queue();
+    function inOrder(node, res) {
+      if (node.left !== null) inOrder(node.left, res);
+      res.enqueue(node.data);
+      if (node.right !== null) inOrder(node.right, res);
+      return res;
+    }
+    queue = inOrder(this.root, queue);
+    this.root = this.buildTree(queue.items);
   }
 }
 
